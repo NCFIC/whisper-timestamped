@@ -32,4 +32,14 @@ RUN rm -R /usr/src/app/requirements.txt /usr/src/app/setup.py /usr/src/app/whisp
 # Copy tests
 COPY tests /usr/src/app/tests
 
-ENTRYPOINT ["/bin/bash"]
+# Expose port 8080 for the Flask application
+EXPOSE 8080
+
+# Set the FLASK_APP environment variable to index.py
+ENV FLASK_APP index.py
+
+# Set the Flask environment to production
+ENV FLASK_ENV production
+
+# Run Flask when the container starts
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
